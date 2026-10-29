@@ -1,39 +1,45 @@
-# 🥠 Glückskeks
+# 🥋 Duell am See
 
-Das Orakel der künftigen Frau Doktor: ein mystischer Glückskeks mit Weisheiten für eine Doktorandin aus Mannheim und einem gemeinsamen Zähler für alle Besucher.
+Ein Online-Kampfspiel für zwei im Handy-Browser – vor einem See bei Sonnenuntergang.
 
-## Aufbau
+- Wer die Seite **zuerst** öffnet, spielt **IHN** (1,80 m, Poloshirt, Jeans).
+- Wer **als Zweites** kommt, spielt **SIE** (1,50 m, Bluse, Anzughose).
+- Alle weiteren **schauen zu** und rücken in einer Warteschlange nach, sobald ein Spieler den Tab schließt.
 
-```
-gluckskeks/
-├── public/                    ← die Website selbst
-│   ├── index.html
-│   ├── style.css
-│   └── script.js              ← hier stehen die Weisheiten
-├── netlify/functions/
-│   └── count.mjs              ← gemeinsamer Zähler (speichert in Netlify Blobs)
-├── netlify.toml               ← sagt Netlify, wo was liegt
-├── package.json               ← eine Abhängigkeit für den Zähler
-└── .gitignore
-```
+## Steuerung
 
-## Deployen (Netlify)
+| Aktion   | Handy   | Tastatur          |
+|----------|---------|-------------------|
+| Bewegen  | ◀ ▶     | ← → oder A D      |
+| Springen | ▲       | ↑, W oder Leertaste |
+| Hieb     | Hieb    | J                 |
+| Tritt    | Tritt   | K                 |
+| Block    | Block   | L oder ↓          |
 
-Einfach pushen:
+ER hat mehr Reichweite und Wucht, SIE ist schneller.
+
+## Wie die Verbindung funktioniert
+
+Es gibt keinen eigenen Server. Die Browser verbinden sich direkt miteinander (WebRTC, über die Bibliothek PeerJS und deren kostenlosen Vermittlungsdienst). Der Browser von IHM rechnet das Spiel und schickt den Stand an alle anderen. Schließt er den Tab, übernimmt automatisch der nächste.
+
+**Eigene Arena:** Mit `?raum=name` hinten an der Adresse (z. B. `…netlify.app/?raum=wir2`) entsteht ein separater Raum.
+
+## Deployen (GitHub + Netlify)
 
 ```bash
+cd duell-am-see
+git init
 git add -A
-git commit -m "Gemeinsamer Zähler und neue Weisheiten"
-git push
+git commit -m "Duell am See"
+git branch -M main
+git remote add origin https://github.com/DEIN-NAME/duell-am-see.git
+git push -u origin main
 ```
 
-Netlify liest die `netlify.toml` automatisch: Die Seite kommt aus `public/`, der Zähler läuft als Funktion unter `/api/count`.
-Falls in den Netlify-Einstellungen unter **Build settings** noch ein eigenes *Publish directory* eingetragen ist, das Feld leeren oder auf `public` setzen.
+Dann bei Netlify: **Add new project → Import an existing project → GitHub → duell-am-see**.
+Build command und Publish directory leer lassen → **Deploy**. Danach unter *Project visibility* auf **Public** stellen.
 
-## Lokal ansehen
+## Gut zu wissen
 
-`public/index.html` im Browser öffnen. Der Zähler funktioniert nur online auf Netlify, lokal bleibt er bei „…“ stehen.
-
-## Eigene Weisheiten
-
-In `public/script.js` das Array `fortunes` erweitern.
+- Läuft das Spiel beim Host im Hintergrund (anderer Tab, Handy gesperrt), bremsen Browser es stark aus – das Spiel stockt dann für alle.
+- In sehr strengen Firmen- oder Uni-Netzen kann die Direktverbindung blockiert sein. Im Mobilfunknetz klappt es in der Regel.

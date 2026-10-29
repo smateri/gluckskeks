@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1d1b4b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Duell am See</title>
+  <meta name="description" content="Ein Online-Kampfspiel für zwei: Er gegen Sie, alle anderen schauen zu.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥋</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-connecting">
+  <div id="app">
+    <div id="stage">
+      <canvas id="cv" aria-label="Spielfeld"></canvas>
+      <button id="fs" title="Vollbild" aria-label="Vollbild">⛶</button>
+    </div>
+
+    <div id="controls" aria-label="Steuerung">
+      <div class="pad move">
+        <button data-k="L" aria-label="Links">◀</button>
+        <button data-k="U" aria-label="Springen" class="jump">▲</button>
+        <button data-k="R" aria-label="Rechts">▶</button>
+      </div>
+      <div class="pad act">
+        <button data-k="B" class="def">Block</button>
+        <button data-k="K" class="atk">Tritt</button>
+        <button data-k="P" class="atk">Hieb</button>
+      </div>
+    </div>
+
+    <p id="keys">Tastatur: ← → bewegen · ↑ springen · J Hieb · K Tritt · L Block</p>
+    <p id="rotate">Tipp: Handy quer halten 📱↻</p>
+  </div>
+
+  <script src="peerjs.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

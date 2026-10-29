@@ -1,0 +1,120 @@
+:root {
+  --bg: #120d1f;
+  --text: #f5e9d6;
+  --gold: #e8c26b;
+  --btn: rgba(20, 14, 36, .72);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+#stage {
+  position: relative;
+  width: min(100vw, calc(100dvh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  max-height: 100dvh;
+}
+
+canvas { display: block; width: 100%; height: 100%; }
+
+#fs {
+  /* zwischen „VS“ und rechtem Lebensbalken */
+  position: absolute; top: 1.5%; left: 53.6%;
+  width: 4%; min-width: 22px; aspect-ratio: 1; padding: 0;
+  border: 1px solid rgba(232,194,107,.5); border-radius: 6px;
+  background: rgba(0,0,0,.35); color: var(--gold);
+  font-size: clamp(11px, 1.8vw, 18px); line-height: 1; cursor: pointer;
+}
+
+/* ---------- Steuerung ---------- */
+#controls {
+  display: none;
+  width: 100%;
+  max-width: 720px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 16px;
+}
+body.is-player #controls { display: flex; }
+
+/* Je zwei Spalten, damit es auch auf schmalen Handys passt */
+.pad { display: grid; grid-template-columns: repeat(2, auto); gap: 8px 10px; }
+.pad.move { grid-template-areas: "u u" "l r"; }
+.pad.act  { grid-template-areas: ". b" "k p"; }
+.pad button[data-k="U"] { grid-area: u; justify-self: center; }
+.pad button[data-k="L"] { grid-area: l; }
+.pad button[data-k="R"] { grid-area: r; }
+.pad button[data-k="B"] { grid-area: b; }
+.pad button[data-k="K"] { grid-area: k; }
+.pad button[data-k="P"] { grid-area: p; }
+
+.pad button {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  border: 2px solid rgba(232,194,107,.65);
+  background: var(--btn);
+  color: var(--text);
+  font: 700 15px system-ui, sans-serif;
+  touch-action: none;
+  -webkit-user-select: none; user-select: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4);
+  transition: transform .06s, background .06s;
+}
+.pad button.atk { background: rgba(160, 32, 30, .78); }
+.pad button.def { background: rgba(30, 70, 120, .78); }
+.pad button.on { transform: scale(.92); background: rgba(232,194,107,.85); color: #1a1030; }
+
+#keys, #rotate { margin: 0; font-size: .8rem; opacity: .7; text-align: center; padding: 0 16px; }
+#rotate { display: none; }
+
+/* Touch-Geräte: Tastatur-Hinweis ausblenden */
+@media (pointer: coarse) {
+  #keys { display: none; }
+  body.is-player #rotate { display: block; }
+}
+/* Maus-Geräte: Knöpfe nur, wenn kein Platz-Problem */
+@media (pointer: fine) {
+  body.is-player #controls { display: none; }
+}
+
+/* Handy quer: Knöpfe über das Spielfeld legen */
+@media (orientation: landscape) and (max-height: 560px) {
+  #app { gap: 0; }
+  #stage { width: min(100vw, calc(100dvh * 16 / 9)); }
+  #controls {
+    position: fixed; left: 0; right: 0;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    max-width: none;
+    padding: 0 calc(18px + env(safe-area-inset-left)) 0 calc(18px + env(safe-area-inset-right));
+    pointer-events: none;
+  }
+  .pad { pointer-events: auto; }
+  .pad { gap: 6px 8px; }
+  .pad button { width: 54px; height: 54px; opacity: .78; font-size: 13px; }
+  body.is-player #rotate { display: none; }
+}
