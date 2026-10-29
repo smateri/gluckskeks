@@ -1,0 +1,272 @@
+:root {
+  --night: #1a1030;
+  --crimson: #9b1b1b;
+  --lacquer: #b3201f;
+  --gold: #e8c26b;
+  --gold-bright: #ffe6a3;
+  --gold-deep: #b3893a;
+  --rice: #f4ead2;
+  --text: #f6ead0;
+  --muted: #bfa98a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  text-align: center;
+  color: var(--text);
+  font-family: "Shippori Mincho", Georgia, serif;
+  background: radial-gradient(ellipse at 50% 15%, #3a1838 0%, var(--night) 45%, #0b0a12 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* ---------- Szene ---------- */
+.scene { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+
+.stars {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 8% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 22% 35%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 35% 8%, #ffeccc, transparent),
+    radial-gradient(1px 1px at 48% 28%, #fff, transparent),
+    radial-gradient(1px 1px at 62% 15%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 78% 40%, #ffeccc, transparent),
+    radial-gradient(1px 1px at 90% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 50%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 55%, #fff, transparent);
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity: .35; } to { opacity: .8; } }
+
+.moon {
+  position: absolute; top: 7%; right: 10%;
+  width: min(30vw, 220px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #fff8e4, #f3dca6 55%, #d6b36c);
+  box-shadow: 0 0 60px 20px rgba(241,217,160,.3), 0 0 180px 70px rgba(241,217,160,.12);
+  opacity: .9;
+}
+
+.mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 42vh; }
+.m1 { fill: #2b1a3d; opacity: .75; }
+.m2 { fill: #1b1128; }
+.m3 { fill: #0c0811; }
+
+.mist {
+  position: absolute; left: -50%; width: 200%; height: 140px;
+  background: radial-gradient(ellipse at center, rgba(255,235,225,.13), transparent 70%);
+  filter: blur(12px);
+  animation: drift 30s ease-in-out infinite alternate;
+}
+.mist1 { bottom: 20vh; }
+.mist2 { bottom: 6vh; opacity: .7; animation-duration: 45s; animation-direction: alternate-reverse; }
+@keyframes drift { from { transform: translateX(-12%); } to { transform: translateX(12%); } }
+
+/* Laternen */
+.lantern {
+  position: absolute; bottom: -60px;
+  border-radius: 45% 45% 35% 35%;
+  background: radial-gradient(circle at 50% 60%, #ffd98a, #ec5f2c 60%, #8f1d12);
+  box-shadow: 0 0 22px 7px rgba(255,140,60,.45);
+  animation: rise linear infinite;
+}
+.lantern::before {
+  content: ""; position: absolute; left: 25%; right: 25%; top: -3px; height: 3px;
+  background: #5a1a10; border-radius: 2px;
+}
+@keyframes rise {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: .9; }
+  85%  { opacity: .8; }
+  100% { transform: translate(var(--sway), -115vh); opacity: 0; }
+}
+
+/* Kirschblüten */
+.petal {
+  position: absolute; top: -20px;
+  background: linear-gradient(135deg, #ffd6e0, #f08fac);
+  border-radius: 100% 0 100% 0;
+  opacity: .8;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0%   { transform: translate(0, 0) rotate(0); }
+  100% { transform: translate(var(--drift), 110vh) rotate(720deg); }
+}
+
+/* ---------- Inhalt ---------- */
+main, footer { position: relative; z-index: 1; }
+
+main {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.1rem;
+  width: 100%; max-width: 520px;
+  padding-top: 2rem;
+}
+
+.seal {
+  font-family: "Ma Shan Zheng", serif;
+  font-size: 2.4rem; line-height: 1;
+  width: 64px; height: 64px;
+  display: grid; place-items: center;
+  background: var(--lacquer); color: #fff3dc;
+  border-radius: 8px;
+  transform: rotate(-6deg);
+  box-shadow: 0 0 0 3px rgba(232,194,107,.6), 0 8px 28px rgba(155,27,27,.55);
+}
+
+h1 {
+  font-weight: 800;
+  font-size: clamp(2.4rem, 10vw, 3.8rem);
+  letter-spacing: .08em;
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold) 50%, var(--gold-deep));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(232,194,107,.35));
+}
+
+.subtitle {
+  display: flex; align-items: center; gap: .75rem;
+  font-size: .72rem; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold);
+}
+.subtitle::before, .subtitle::after {
+  content: ""; width: 32px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.subtitle::after { transform: scaleX(-1); }
+
+.hint { color: var(--muted); font-style: italic; min-height: 1.5em; }
+
+/* Altar & Keks */
+.altar { position: relative; width: 260px; height: 220px; display: grid; place-items: center; }
+
+.aura {
+  position: absolute; inset: 0; margin: auto;
+  width: 220px; height: 220px; border-radius: 50%;
+  border: 1px dashed rgba(232,194,107,.55);
+  box-shadow: inset 0 0 50px rgba(232,194,107,.18), 0 0 40px rgba(232,194,107,.15);
+  animation: spin 40s linear infinite;
+}
+.aura::before {
+  content: ""; position: absolute; inset: 14px; border-radius: 50%;
+  border: 1px solid rgba(232,194,107,.25);
+}
+.aura::after {
+  content: ""; position: absolute; inset: 30px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,214,140,.35), transparent 70%);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.cookie {
+  position: relative; width: 180px; height: 110px;
+  border: none; background: none; cursor: pointer;
+  filter: drop-shadow(0 0 22px rgba(255,200,110,.55));
+  animation: float 4s ease-in-out infinite;
+}
+.cookie:focus-visible { outline: 2px solid var(--gold); outline-offset: 12px; border-radius: 12px; }
+
+.half {
+  position: absolute; top: 0; width: 90px; height: 110px;
+  background: radial-gradient(circle at 30% 30%, #ffe6a8, #e7a948 55%, #a8661f);
+  box-shadow: inset -6px -8px 0 rgba(0,0,0,.1);
+  transition: transform .7s cubic-bezier(.3,1.6,.5,1);
+}
+.half.left  { left: 0;  border-radius: 90px 0 0 90px / 55px 0 0 55px; }
+.half.right { right: 0; border-radius: 0 90px 90px 0 / 0 55px 55px 0; }
+
+.cookie.open { animation: none; cursor: default; }
+.cookie.open .left  { transform: translateX(-55px) rotate(-28deg); }
+.cookie.open .right { transform: translateX(55px) rotate(28deg); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Goldfunken */
+.burst { position: absolute; inset: 0; pointer-events: none; }
+.spark {
+  position: absolute; left: 50%; top: 50%;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 10px 2px rgba(255,214,140,.8);
+  animation: fly .9s ease-out forwards;
+}
+@keyframes fly {
+  from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  to   { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0); opacity: 0; }
+}
+
+/* Schriftrolle */
+.scroll { width: 100%; max-width: 420px; opacity: 0; transition: opacity .3s .2s; }
+.scroll.show { opacity: 1; }
+
+.rod {
+  position: relative; height: 14px; margin: 0 -10px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #c93d2c, #7a1410);
+  box-shadow: 0 3px 8px rgba(0,0,0,.5);
+}
+.rod::before, .rod::after {
+  content: ""; position: absolute; top: -3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--gold-bright), var(--gold-deep));
+}
+.rod::before { left: -8px; }
+.rod::after  { right: -8px; }
+
+.sheet {
+  position: relative;
+  padding: 1.6rem 1.75rem 1.9rem;
+  color: #2a1a10;
+  background:
+    repeating-linear-gradient(0deg, rgba(120,80,30,.035) 0 2px, transparent 2px 5px),
+    linear-gradient(180deg, #f8efd9, var(--rice) 50%, #eadcbb);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .9s .35s cubic-bezier(.2,.8,.2,1);
+}
+.scroll.show .sheet { transform: scaleY(1); }
+
+.sheet::after {
+  content: "运";
+  position: absolute; right: 12px; bottom: 10px;
+  font-family: "Ma Shan Zheng", serif; font-size: 1.1rem; line-height: 1;
+  width: 30px; height: 30px; display: grid; place-items: center;
+  color: #fff1dc; background: var(--crimson);
+  border-radius: 4px; transform: rotate(8deg); opacity: .85;
+}
+
+.label {
+  font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--crimson); margin-bottom: .8rem;
+}
+#fortune { font-size: 1.15rem; line-height: 1.65; font-weight: 700; }
+.numbers { margin-top: 1rem; font-size: .82rem; letter-spacing: .12em; color: #7a5a3a; }
+
+/* Button */
+.again {
+  font-family: inherit; font-size: .95rem; font-weight: 700;
+  letter-spacing: .15em;
+  color: var(--gold-bright);
+  background: linear-gradient(180deg, #c42b22, #8a1712);
+  border: 1px solid var(--gold);
+  padding: .85rem 1.75rem; border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 0 26px rgba(196,43,34,.5);
+  transition: transform .15s, box-shadow .2s;
+}
+.again:hover { transform: translateY(-2px); box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 0 36px rgba(232,194,107,.45); }
+
+footer { color: var(--muted); font-size: .8rem; letter-spacing: .08em; padding: 2rem 0 .5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .sky { display: none; }
+}

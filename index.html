@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glückskeks</title>
+  <meta name="description" content="Das Orakel des goldenen Kekses.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥠</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Shippori+Mincho:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Hintergrundszene -->
+  <div class="scene" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none">
+      <path class="m1" d="M0 250 C80 220 120 140 200 150 C270 160 300 230 380 210 C460 190 500 90 600 100 C690 110 720 210 820 200 C900 190 960 120 1050 130 C1140 140 1180 220 1270 210 C1350 200 1400 160 1440 170 L1440 400 L0 400Z"/>
+      <path class="m2" d="M0 300 C100 280 160 210 260 220 C350 230 380 290 480 280 C580 270 620 190 720 200 C820 210 860 290 960 280 C1060 270 1100 220 1200 230 C1300 240 1370 290 1440 280 L1440 400 L0 400Z"/>
+      <path class="m3" d="M0 350 C120 330 200 290 320 300 C440 310 500 350 620 345 C740 340 800 300 920 305 C1040 310 1100 350 1220 345 C1320 340 1390 320 1440 325 L1440 400 L0 400Z"/>
+    </svg>
+    <div class="mist mist1"></div>
+    <div class="mist mist2"></div>
+    <div class="sky" id="sky"></div>
+  </div>
+
+  <main>
+    <div class="seal">福</div>
+    <h1>Glückskeks</h1>
+    <p class="subtitle">Das Orakel des goldenen Kekses</p>
+    <p class="hint" id="hint">Berühre den Keks und empfange deine Weisheit.</p>
+
+    <div class="altar">
+      <div class="aura"></div>
+      <button class="cookie" id="cookie" aria-label="Glückskeks öffnen">
+        <span class="half left"></span>
+        <span class="half right"></span>
+      </button>
+      <div class="burst" id="burst"></div>
+    </div>
+
+    <div class="scroll" id="paper" aria-live="polite">
+      <div class="rod"></div>
+      <div class="sheet">
+        <p class="label">Die Sterne sprechen</p>
+        <p id="fortune"></p>
+        <p class="numbers">Glückszahlen · <span id="numbers"></span></p>
+      </div>
+      <div class="rod"></div>
+    </div>
+
+    <button class="again" id="again" hidden>Neues Schicksal ziehen</button>
+  </main>
+
+  <footer>Geschmiedet mit Vibes · <span id="count">0</span> Schicksale enthüllt</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
